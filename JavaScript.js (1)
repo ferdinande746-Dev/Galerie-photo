@@ -1,0 +1,30 @@
+const imagePrincipale = document.getElementById("image");
+const images = document.querySelectorAll(".preview");
+
+const texteInitial = "Sélectionne une photo";
+
+function upDate(previewPic) {
+  imagePrincipale.style.backgroundImage = `url("${previewPic.src}")`;
+  imagePrincipale.textContent = previewPic.alt;
+}
+
+function unDo() {
+  imagePrincipale.style.backgroundImage = "none";
+  imagePrincipale.textContent = texteInitial;
+}
+
+images.forEach((image) => {
+  image.addEventListener("mouseover", () => upDate(image));
+  image.addEventListener("focus", () => upDate(image));
+  image.addEventListener("click", () => upDate(image));
+
+  image.addEventListener("mouseout", unDo);
+  image.addEventListener("blur", unDo);
+
+  image.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      upDate(image);
+    }
+  });
+});
